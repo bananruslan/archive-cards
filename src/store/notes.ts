@@ -1,0 +1,48 @@
+import { create } from 'zustand'
+import { immer } from 'zustand/middleware/immer'
+
+import { keyBy } from '@/utils/keyBy'
+import { MOCK_NOTES } from '@/mocks/notes'
+
+export interface Note {
+  id: string
+  info: {
+    emoji: string
+    title: string
+    description: string
+    color: string
+  }
+  // TODO: Add meta information
+  meta?: {
+    parentId: string | null
+    children: string[]
+  }
+}
+
+interface NotesStore {
+  notes: Record<Note['id'], Note>
+  noteIds: Array<Note['id']>
+  addNote: (note: Note) => void
+  deleteNote: (noteId: Note['id']) => void
+  updateNote: (noteId: Note['id'], patch: Partial<Note>) => void
+}
+
+export const useNotesStore = create<NotesStore>()(
+  immer((set) => ({
+    notes: keyBy<Note>(MOCK_NOTES, 'id'),
+    noteIds: MOCK_NOTES.map(({ id }) => id),
+
+    addNote: (note) => set((state) => {
+      state.notes[note.id] = note
+    }),
+
+    deleteNote: (noteId) => set((state) => {
+      delete state.notes[noteId];
+      state.noteIds = state.noteIds.filter((id) => id !== noteId)
+    }),
+
+    updateNote: (id, patch) => set((state) => {
+      Object.assign(state.notes[id], patch)
+    }),
+  }))
+)
