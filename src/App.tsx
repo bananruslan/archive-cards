@@ -1,5 +1,5 @@
 import { ThemeProvider, ThemeToggle } from "@/components/theme";
-import NotesList from "@/components/list/NotesList";
+import { Notes } from "./components/notes";
 
 export function App() {
   return (
@@ -8,7 +8,7 @@ export function App() {
         <ThemeToggle />
       </header>
 
-      <NotesList className="m-4" />
+      <Notes className="m-4" />
     </ThemeProvider>
   );
 }

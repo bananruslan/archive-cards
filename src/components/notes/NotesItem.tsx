@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Item,
@@ -8,15 +9,15 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import type { Note, NotesStore } from "@/store/notes";
-import { Trash2 } from "lucide-react";
+import { useNotesStore, type Note } from "@/store/notes";
 
 type NotesItemProps = {
   note: Note;
-  onDelete: NotesStore["deleteNote"];
 };
 
 export default memo(function NotesItem({ ...props }: NotesItemProps) {
+  const deleteNote = useNotesStore((state) => state.deleteNote);
+
   return (
     <Item key={props.note.id} variant="outline">
       <ItemMedia className="text-2xl">{props.note.info.emoji}</ItemMedia>
@@ -30,7 +31,7 @@ export default memo(function NotesItem({ ...props }: NotesItemProps) {
         <Button
           size="sm"
           variant="destructive"
-          onClick={() => props.onDelete(props.note.id)}
+          onClick={() => deleteNote(props.note.id)}
         >
           <Trash2 />
           Delete

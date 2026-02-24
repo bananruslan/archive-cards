@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
-import { keyBy } from '@/lib/keyBy'
+import { keyBy } from '@/lib/utils'
 import { MOCK_NOTES } from '@/mocks/notes'
 
 export interface Note {
@@ -26,8 +26,10 @@ export interface NotesStore {
   deleteNote: (noteId: Note['id']) => void
   updateNote: (noteId: Note['id'], patch: Partial<Note>) => void
   resetNotes: () => void
+  clear: () => void
 }
 
+// TODO: Вынести в хук
 export const useNotesStore = create<NotesStore>()(
   immer((set) => ({
     notes: keyBy<Note>(MOCK_NOTES, 'id'),
@@ -35,11 +37,12 @@ export const useNotesStore = create<NotesStore>()(
 
     addNote: (note) => set((state) => {
       state.notes[note.id] = note
+      state.noteIds = state.noteIds.map((id) => id)
     }),
 
     deleteNote: (noteId) => set((state) => {
       delete state.notes[noteId];
-      state.noteIds = state.noteIds.filter((id) => id !== noteId)
+      state.noteIds.push(noteId);
     }),
 
     updateNote: (id, patch) => set((state) => {
@@ -49,6 +52,11 @@ export const useNotesStore = create<NotesStore>()(
     resetNotes: () => set((state) => {
       state.notes = keyBy<Note>(MOCK_NOTES, 'id');
       state.noteIds = MOCK_NOTES.map(({ id }) => id);
+    }),
+
+    clear: () => set((state) => {
+      state.notes = {};
+      state.noteIds = [];
     }),
   }))
 )
