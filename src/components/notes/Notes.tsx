@@ -23,21 +23,12 @@ export default function Notes({ className }: NotesProps) {
   };
 
   return (
-    <div
-      className={clsx(
-        className,
-        "flex flex-col border border-border overflow-hidden",
-      )}
-    >
+    <div className={clsx(className, "flex flex-col border border-border overflow-hidden")}>
       <NotesControl onAddNote={() => openModal(null)} />
       <NotesList onOpenNote={openModal} />
 
       {displayModal && (
-        <NotesModal
-          data={editingNote}
-          opened={displayModal}
-          onChange={onChangeModal}
-        />
+        <NotesModal data={editingNote} opened={displayModal} onChange={onChangeModal} />
       )}
     </div>
   );

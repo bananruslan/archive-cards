@@ -1,9 +1,6 @@
 import { useNotesStore, type Note } from "@/store/notes";
 import { NotesItem } from "@/components/notes";
-import {
-  TransitionList,
-  TransitionItem,
-} from "@/components/utils/TransitionList";
+import { TransitionList, TransitionItem } from "@/components/utils/TransitionList";
 
 export interface NotesListProps {
   onOpenNote: (note: Note | null) => void;

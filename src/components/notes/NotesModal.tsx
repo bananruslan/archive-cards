@@ -23,18 +23,12 @@ export interface NotesModalProps {
   onChange: (open: boolean) => void;
 }
 
-export default function NotesModal({
-  opened,
-  data,
-  onChange,
-}: NotesModalProps) {
+export default function NotesModal({ opened, data, onChange }: NotesModalProps) {
   const addNote = useNotesStore((state) => state.addNote);
   const updateNote = useNotesStore((state) => state.updateNote);
 
   const [title, setTitle] = useState(data?.info.title ?? "New note title");
-  const [description, setDescription] = useState(
-    data?.info.description ?? "New note content",
-  );
+  const [description, setDescription] = useState(data?.info.description ?? "New note content");
   const [emoji, setEmoji] = useState(data?.info.emoji ?? "😭");
 
   const onCreate = () => {
@@ -82,11 +76,7 @@ export default function NotesModal({
               <Label htmlFor="title">Title</Label>
               <ButtonGroup>
                 <EmojiPicker emoji={emoji} setEmoji={setEmoji} />
-                <Input
-                  value={title}
-                  id="title"
-                  onChange={(e) => setTitle(e.target.value)}
-                />
+                <Input value={title} id="title" onChange={(e) => setTitle(e.target.value)} />
               </ButtonGroup>
             </Field>
 

@@ -5,10 +5,7 @@ export function TransitionList({ children }: React.PropsWithChildren) {
   return <AnimatePresence>{children}</AnimatePresence>;
 }
 
-export function TransitionItem({
-  children,
-  ...props
-}: React.PropsWithChildren<{ id: string }>) {
+export function TransitionItem({ children, ...props }: React.PropsWithChildren<{ id: string }>) {
   return (
     <motion.div
       layoutId={`list-item-${props.id}`}

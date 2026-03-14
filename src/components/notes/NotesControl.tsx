@@ -7,11 +7,7 @@ export interface NotesControlProps {
   onAddNote: () => void;
 }
 
-export default memo(function NotesControl({
-  onAddNote,
-}: {
-  onAddNote: () => void;
-}) {
+export default memo(function NotesControl({ onAddNote }: { onAddNote: () => void }) {
   const resetNotes = useNotesStore((state) => state.resetNotes);
   const clear = useNotesStore((state) => state.clear);
 
