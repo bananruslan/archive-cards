@@ -12,26 +12,26 @@ import {
 import { useNotesStore, type Note } from "@/store/notes";
 
 type NotesItemProps = {
-  note: Note;
+  data: Note;
 };
 
 export default memo(function NotesItem({ ...props }: NotesItemProps) {
   const deleteNote = useNotesStore((state) => state.deleteNote);
 
   return (
-    <Item key={props.note.id} variant="outline">
-      <ItemMedia className="text-2xl">{props.note.info.emoji}</ItemMedia>
+    <Item key={props.data.id} variant="outline">
+      <ItemMedia className="text-2xl">{props.data.info.emoji}</ItemMedia>
 
       <ItemContent>
-        <ItemTitle>{props.note.info.title}</ItemTitle>
-        <ItemDescription>{props.note.info.description}</ItemDescription>
+        <ItemTitle>{props.data.info.title}</ItemTitle>
+        <ItemDescription>{props.data.info.description}</ItemDescription>
       </ItemContent>
 
       <ItemActions>
         <Button
           size="sm"
           variant="destructive"
-          onClick={() => deleteNote(props.note.id)}
+          onClick={() => deleteNote(props.data.id)}
         >
           <Trash2 />
           Delete

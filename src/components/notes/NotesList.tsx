@@ -1,26 +1,23 @@
-import { AnimatePresence, motion } from "motion/react";
 import { useNotesStore, type Note } from "@/store/notes";
 import { NotesItem } from "@/components/notes";
+import {
+  TransitionList,
+  TransitionItem,
+} from "@/components/utils/TransitionList";
 
 export default function NotesList() {
   const notes = useNotesStore((state) => state.notes);
+  console.log(Object.values(notes));
 
   return (
     <div className="flex flex-col grow gap-2 p-4 overflow-auto">
-      <AnimatePresence>
+      <TransitionList>
         {Object.values(notes).map((note: Note) => (
-          <motion.div
-            key={note.id}
-            layoutId={`list-item-${note.id}`}
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ type: "tween", duration: 0.1 }}
-          >
-            <NotesItem key={note.id} note={note} />
-          </motion.div>
+          <TransitionItem key={note.id} id={note.id}>
+            <NotesItem data={note} />
+          </TransitionItem>
         ))}
-      </AnimatePresence>
+      </TransitionList>
     </div>
   );
 }
