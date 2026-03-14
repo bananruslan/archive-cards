@@ -8,7 +8,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -16,23 +15,29 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { EmojiPicker } from "@/components/ui/emoji-picker";
+import { useNotesStore, type Note } from "@/store/notes";
 
-import { useNotesStore } from "@/store/notes";
+export interface NotesModalProps {
+  opened: boolean;
+  data: Note | null;
+  onChange: (open: boolean) => void;
+}
 
-export default function NotesAddedModal({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function NotesModal({
+  opened,
+  data,
+  onChange,
+}: NotesModalProps) {
   const addNote = useNotesStore((state) => state.addNote);
+  const updateNote = useNotesStore((state) => state.updateNote);
 
-  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState(data?.info.title ?? "New note title");
+  const [description, setDescription] = useState(
+    data?.info.description ?? "New note content",
+  );
+  const [emoji, setEmoji] = useState(data?.info.emoji ?? "😭");
 
-  const [title, setTitle] = useState("New note title");
-  const [description, setDescription] = useState("New note content");
-  const [emoji, setEmoji] = useState("😭");
-
-  const onClickCreate = () => {
+  const onCreate = () => {
     addNote({
       id: Date.now().toString(),
       info: {
@@ -43,14 +48,27 @@ export default function NotesAddedModal({
       },
     });
 
-    setOpen(false);
+    onChange(false);
+  };
+
+  const onUpdate = () => {
+    if (data) {
+      updateNote(data?.id, {
+        title,
+        description,
+        emoji,
+      });
+      onChange(false);
+    }
+  };
+
+  const toggleModal = (value: boolean) => {
+    onChange(value);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={opened} onOpenChange={toggleModal}>
       <form>
-        <DialogTrigger asChild>{children}</DialogTrigger>
-
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
             <DialogTitle>Add note</DialogTitle>
@@ -86,9 +104,15 @@ export default function NotesAddedModal({
             <DialogClose asChild>
               <Button variant="outline">Close</Button>
             </DialogClose>
-            <Button type="submit" onClick={onClickCreate}>
-              Add note
-            </Button>
+            {data ? (
+              <Button type="button" onClick={onUpdate}>
+                Update note
+              </Button>
+            ) : (
+              <Button type="submit" onClick={onCreate}>
+                Add note
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </form>

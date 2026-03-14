@@ -24,7 +24,7 @@ export interface NotesStore {
   noteIds: Array<Note['id']>
   addNote: (note: Note) => void
   deleteNote: (noteId: Note['id']) => void
-  updateNote: (noteId: Note['id'], patch: Partial<Note>) => void
+  updateNote: (noteId: Note['id'], patch: Partial<Note['info']>) => void
   resetNotes: () => void
   clear: () => void
 }
@@ -46,7 +46,7 @@ export const useNotesStore = create<NotesStore>()(
     }),
 
     updateNote: (id, patch) => set((state) => {
-      Object.assign(state.notes[id], patch)
+      Object.assign(state.notes[id].info, patch)
     }),
 
     resetNotes: () => set((state) => {
