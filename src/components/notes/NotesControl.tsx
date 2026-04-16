@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { FilePlusCorner, ListRestart, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNotesStore } from "@/store/notes";
@@ -7,7 +6,7 @@ export interface NotesControlProps {
   onAddNote: () => void;
 }
 
-export default memo(function NotesControl({ onAddNote }: { onAddNote: () => void }) {
+export default function NotesControl({ onAddNote }: { onAddNote: () => void }) {
   const resetNotes = useNotesStore((state) => state.resetNotes);
   const clear = useNotesStore((state) => state.clear);
 
@@ -29,4 +28,4 @@ export default memo(function NotesControl({ onAddNote }: { onAddNote: () => void
       </Button>
     </div>
   );
-});
+}

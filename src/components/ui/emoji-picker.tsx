@@ -25,7 +25,13 @@ const EMOJI_LIST = [
   "🙀",
 ];
 
-export function EmojiPicker(props: { emoji: string; setEmoji: (emoji: string) => void }) {
+export function EmojiPicker({
+  children,
+  ...props
+}: React.PropsWithChildren<{
+  emoji: string;
+  setEmoji: (emoji: string) => void;
+}>) {
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
 
   const selectEmoji = (emoji: string) => {
@@ -35,11 +41,8 @@ export function EmojiPicker(props: { emoji: string; setEmoji: (emoji: string) =>
 
   return (
     <Popover open={openEmojiPicker} onOpenChange={setOpenEmojiPicker}>
-      <PopoverTrigger asChild>
-        <Button variant="outline" className="text-lg">
-          {props.emoji}
-        </Button>
-      </PopoverTrigger>
+      <PopoverTrigger asChild>{children}</PopoverTrigger>
+
       <PopoverContent asChild side="right" className="w-auto gap-0">
         <div className="grid grid-cols-4">
           {EMOJI_LIST.map((tag) => (

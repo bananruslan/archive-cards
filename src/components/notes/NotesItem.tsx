@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +16,7 @@ export interface NotesItemProps {
   onEdit: () => void;
 }
 
-export default memo(function NotesItem({ ...props }: NotesItemProps) {
+export default function NotesItem({ ...props }: NotesItemProps) {
   const onDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     props.onDelete();
@@ -29,7 +28,12 @@ export default memo(function NotesItem({ ...props }: NotesItemProps) {
   };
 
   return (
-    <Item key={props.data.id} variant="outline">
+    <Item
+      key={props.data.id}
+      variant="outline"
+      style={{ borderLeftColor: props.data.info.color }}
+      className="border-l-8"
+    >
       <ItemMedia className="text-2xl">{props.data.info.emoji}</ItemMedia>
 
       <ItemContent key={props.data.id}>
@@ -49,4 +53,4 @@ export default memo(function NotesItem({ ...props }: NotesItemProps) {
       </ItemActions>
     </Item>
   );
-});
+}

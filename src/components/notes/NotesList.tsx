@@ -10,6 +10,8 @@ export default function NotesList({ onOpenNote }: NotesListProps) {
   const notes = useNotesStore((state) => state.notes);
   const deleteNote = useNotesStore((state) => state.deleteNote);
 
+  console.log("notes:", notes);
+
   return (
     <div className="flex flex-col grow gap-2 p-4 overflow-auto">
       <TransitionList>

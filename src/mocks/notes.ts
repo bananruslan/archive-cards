@@ -7,7 +7,7 @@ export const MOCK_NOTES: Note[] = [
       emoji: "🫠",
       title: "Note 1",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      color: "#FF5733",
+      color: "#d6d3d1",
     },
   },
   {
@@ -16,7 +16,7 @@ export const MOCK_NOTES: Note[] = [
       emoji: "😭",
       title: "Note 2",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      color: "#FF5733",
+      color: "#d6d3d1",
     },
   },
   {
@@ -25,7 +25,7 @@ export const MOCK_NOTES: Note[] = [
       emoji: "🤔",
       title: "Note 3",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      color: "#FF5733",
+      color: "#d6d3d1",
     },
   },
   {
@@ -34,7 +34,7 @@ export const MOCK_NOTES: Note[] = [
       emoji: "😂",
       title: "Note 4",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      color: "#FF5733",
+      color: "#d6d3d1",
     },
   },
   {
@@ -43,7 +43,7 @@ export const MOCK_NOTES: Note[] = [
       emoji: "😱",
       title: "Note 5",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      color: "#FF5733",
+      color: "#d6d3d1",
     },
   },
 ];

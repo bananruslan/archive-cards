@@ -49,6 +49,7 @@ export const useNotesStore = create<NotesStore>()(
 
     updateNote: (id, patch) =>
       set((state) => {
+        console.log("patch", patch);
         Object.assign(state.notes[id].info, patch);
       }),
 
